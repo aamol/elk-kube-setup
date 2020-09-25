@@ -1,37 +1,21 @@
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  name: elasticsearch
-spec:
-  ports:
-  - port: 9200
-    protocol: TCP
-    targetPort: 9200
-  selector:
-    run: elasticsearch
-status:
-  loadBalancer: {}
----
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    run: elasticsearch
+    app: elasticsearch
   name: elasticsearch
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: elasticsearch
+      app: elasticsearch
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        run: elasticsearch
+        app: elasticsearch
     spec:
       containers:
       - env:
@@ -47,5 +31,16 @@ spec:
         name: elasticsearch
         ports:
         - containerPort: 9200
+        volumeMounts:
+        - mountPath: /usr/share/elasticsearch/data
+          name: elasticsearch-storage
         resources: {}
-status: {}
+      volumes:
+        - name: elasticsearch-storage
+          persistentVolumeClaim:
+            claimName: elasticsearch-storage
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        fsGroup: 472
+        
