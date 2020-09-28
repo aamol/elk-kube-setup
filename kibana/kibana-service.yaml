@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   name: kibana
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 5601
     protocol: TCP
