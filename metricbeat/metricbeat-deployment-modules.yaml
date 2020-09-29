@@ -5,7 +5,7 @@ metadata:
   labels:
     k8s-app: metricbeat
 data:
-  # This module requires `kube-state-metrics` up and running under `kube-system` namespace
+  # This module requires `kube-state-metrics` up and running under `monitoring` namespace
   kubernetes.yml: |-
     - module: kubernetes
       metricsets:
@@ -14,7 +14,7 @@ data:
         - state_replicaset
         - state_pod
         - state_container
-        # Uncomment this to get k8s events:
-        #- event
+        - state_resourcequota
+        - event
       period: 10s
       hosts: ["kube-state-metrics:8080"]

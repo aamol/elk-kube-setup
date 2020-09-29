@@ -10,6 +10,9 @@ rules:
   - namespaces
   - events
   - pods
+  - deployments
+  - replicasets
+  - nodes
   verbs:
   - get
   - watch
