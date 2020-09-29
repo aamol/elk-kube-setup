@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: kube-state-metrics
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    grafanak8sapp: "true"
+    k8s-app: kube-state-metrics
+  type: ClusterIP
+status:
+  loadBalancer: {}
