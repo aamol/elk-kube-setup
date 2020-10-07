@@ -2,8 +2,10 @@ kubectl create namespace monitoring
 kubectl -n monitoring apply -f elasticsearch/create-pvc.yaml
 kubectl -n monitoring apply -f elasticsearch/elasticsearch-deployment.yaml
 kubectl -n monitoring apply -f elasticsearch/elasticsearch-service.yaml
+sleep 10
 kubectl -n monitoring apply -f kibana/kibana-deployment.yaml
 kubectl -n monitoring apply -f kibana/kibana-service.yaml
+sleep 100
 kubectl -n monitoring apply -f filebeat/filebeat-cr.yaml
 kubectl -n monitoring apply -f filebeat/filebeat-inputs.yaml
 kubectl -n monitoring apply -f filebeat/filebeat-sa.yaml
