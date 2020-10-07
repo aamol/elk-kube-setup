@@ -6,45 +6,16 @@ metadata:
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: monitoring
-  name: kube-state-metrics
-rules:
-- apiGroups: [""]
-  resources:
-  - pods
-  verbs: ["get"]
-- apiGroups: ["extensions"]
-  resources:
-  - deployments
-  resourceNames: ["kube-state-metrics"]
-  verbs: ["get", "update"]
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: kube-state-metrics
-  namespace: monitoring
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: kube-state-metrics
-subjects:
-- kind: ServiceAccount
-  name: kube-state-metrics
-  namespace: monitoring
----
-
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: kube-state-metrics
   namespace: monitoring
 rules:
-- apiGroups: [""]
+- apiGroups:
+  - ""
   resources:
+  - configmaps
+  - secrets
   - nodes
   - pods
   - services
@@ -55,30 +26,100 @@ rules:
   - persistentvolumes
   - namespaces
   - endpoints
-  verbs: ["list", "watch"]
-- apiGroups: ["extensions"]
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
   resources:
   - daemonsets
   - deployments
   - replicasets
-  verbs: ["list", "watch"]
-- apiGroups: ["apps"]
+  - ingresses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - apps
   resources:
   - statefulsets
-  verbs: ["list", "watch"]
-- apiGroups: ["batch"]
+  - daemonsets
+  - deployments
+  - replicasets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - batch
   resources:
   - cronjobs
   - jobs
-  verbs: ["list", "watch"]
-- apiGroups: ["autoscaling"]
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
   resources:
   - horizontalpodautoscalers
-  verbs: ["list", "watch"]
-- apiGroups: ["policy"]
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - policy
   resources:
   - poddisruptionbudgets
-  verbs: ["list", "watch"]
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - certificates.k8s.io
+  resources:
+  - certificatesigningrequests
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - list
+  - watch
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1 
