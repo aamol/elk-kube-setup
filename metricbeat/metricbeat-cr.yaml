@@ -12,6 +12,7 @@ rules:
   - pods
   - deployments
   - replicasets
+  - nodes/stats
   - nodes
   verbs:
   - get

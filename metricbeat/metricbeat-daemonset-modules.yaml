@@ -40,4 +40,7 @@ data:
         - container
         - volume
       period: 10s
-      hosts: ["localhost:10255"]	
+      host: "${NODE_NAME}"
+      hosts: ["https://${NODE_NAME}:10250"]
+      ssl.verification_mode: none
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
