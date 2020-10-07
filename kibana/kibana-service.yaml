@@ -9,8 +9,10 @@ spec:
   - port: 5601
     protocol: TCP
     targetPort: 5601
+    name: kibana
   - port: 80
     protocol: TCP
-    targetPort: 5601    
+    targetPort: 5601
+    name: http
   selector:
     run: kibana
