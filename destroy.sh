@@ -1,0 +1,26 @@
+kubectl -n monitoring delete -f apm-server/apm-server.yaml
+kubectl -n monitoring delete -f apm-server/apm-server-config.yaml
+kubectl -n monitoring delete -f apm-server/apm-server-service.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-ds.yaml
+kubectl -n monitoring delete -f metricbeat/state-metrics-rbac.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-crb.yaml
+kubectl -n monitoring delete -f metricbeat/kube-state-metrics-service.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-config.yaml
+kubectl -n monitoring delete -f metricbeat/state-metrics-deploy.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-sa.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-deployment-modules.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-daemonset-modules.yaml
+kubectl -n monitoring delete -f metricbeat/metricbeat-cr.yaml
+kubectl -n monitoring delete -f filebeat/filebeat.yaml
+kubectl -n monitoring delete -f filebeat/filebeat-crb.yaml
+kubectl -n monitoring delete -f filebeat/filebeat-config.yaml
+kubectl -n monitoring delete -f filebeat/filebeat-sa.yaml
+kubectl -n monitoring delete -f filebeat/filebeat-inputs.yaml
+kubectl -n monitoring delete -f filebeat/filebeat-cr.yaml
+kubectl -n monitoring delete -f kibana/kibana-service.yaml
+kubectl -n monitoring delete -f kibana/kibana-deployment.yaml
+kubectl -n monitoring delete -f elasticsearch/elasticsearch-service.yaml
+kubectl -n monitoring delete -f elasticsearch/elasticsearch-deployment.yaml
+kubectl -n monitoring delete -f elasticsearch/create-pvc.yaml
+kubectl delete namespace monitoring
