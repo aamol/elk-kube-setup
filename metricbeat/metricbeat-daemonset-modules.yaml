@@ -32,68 +32,14 @@ data:
       - drop_event.when.regexp:
           system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'
   kubernetes.yml: |-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: metricbeat-daemonset-modules
-  labels:
-    k8s-app: metricbeat
-data:
-  system.yml: |-
-    - module: system
-      period: 10s
-      metricsets:
-        - cpu
-        - load
-        - memory
-        - network
-        - process
-        - process_summary
-        - core
-        - diskio
-        - socket
-      processes: ['.*']
-      process.include_top_n:
-        by_cpu: 5      # include top 5 processes by CPU
-        by_memory: 5   # include top 5 processes by memory
-
-    - module: system
-      period: 1m
-      metricsets:
-        - filesystem
-        - fsstat
-      processors:
-      - drop_event.when.regexp:
-          system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'
-  kubernetes.yml: |-
     - module: kubernetes
       metricsets:
-        - container
         - node
-        - pod
         - system
+        - pod
+        - container
         - volume
       period: 10s
-      enabled: true
       hosts: ["https://localhost:10250"]
+      ssl.verification_mode: none
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
-      ssl.verification_mode: "none"
-      add_metadata: true
-    - module: kubernetes
-      enabled: true
-      metricsets:
-        - proxy
-      hosts: ["localhost:10249"]
-      period: 10s
-    - module: kubernetes
-      enabled: true
-      metricsets:
-        - controllermanager
-      hosts: ["http://localhost:10252"]
-      period: 10s
-    - module: kubernetes
-      enabled: true
-      metricsets:
-        - scheduler
-      hosts: ["localhost:10251"]
-      period: 10s
